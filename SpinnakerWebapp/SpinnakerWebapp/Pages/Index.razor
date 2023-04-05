@@ -1,0 +1,29 @@
+﻿@page "/"
+@using SpinnakerWebapp.Data
+@using SpinnakerWebapp.Entities
+
+<PageTitle>Index</PageTitle>
+
+Windrichting:
+<input @bind="windrichting" /> graden
+
+<button @onclick="ReadExcelClicked">Read excel</button>
+
+<br />
+
+@foreach(var baan in banen)
+{
+    <h3>@baan.Windrichting</h3>
+    <SpinnakerWebapp.Components.Baan Boeien="baan.Boeien" Windrichting="windrichting" />
+
+}
+
+@code {
+    int windrichting;
+    List<Baan> banen = new List<Baan>();
+    public void ReadExcelClicked()
+    {
+        var readSpiKant = new ReadSpiKant();
+        banen = readSpiKant.Read();
+    }
+}

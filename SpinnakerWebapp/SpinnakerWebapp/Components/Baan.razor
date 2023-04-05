@@ -1,0 +1,46 @@
+﻿@using SpinnakerWebapp.Entities
+
+
+<table class="spinnaker"><tr>
+@foreach (var boei in Boeien)
+{
+    <th>@boei.Name</th>   
+}
+</tr>
+<tr>
+@foreach (var boei in Boeien)
+{
+    <td>@boei.WindAngle</td>   
+}
+</tr>
+<tr>
+@foreach (var boei in Boeien)
+{
+    <td style="@kantkleur((boei.WindAngle-Windrichting+360) % 360)">@((boei.WindAngle-Windrichting+360) % 360)</td>   
+}
+</tr>
+
+</table>
+
+
+@code {
+    [Parameter]
+    public List<Boei> Boeien { get; set; }
+
+    [Parameter]
+    public int Windrichting { get; set; }
+
+    string kantkleur(int windrichting)
+    {
+        if (windrichting >= 181 && windrichting <= 260)
+        {
+            return "background-color:#80F080";
+        }
+        else
+        if (windrichting >= 100 && windrichting <= 180)
+        {
+            return "background-color:#F08080";
+        }
+        else return "";
+    }
+}
